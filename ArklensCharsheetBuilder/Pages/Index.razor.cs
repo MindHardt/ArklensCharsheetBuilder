@@ -14,9 +14,6 @@ public partial class Index
     private string? _charsheetFront;
     private string? _charsheetBack;
 
-    private bool _includeFront = true;
-    private bool _includeBack = true;
-
     private string _fileName = string.Empty;
 
     [Inject]
@@ -49,12 +46,9 @@ public partial class Index
         _portraitBase64 = DefaultPortraitBase64;
     }
 
-    private async Task DownloadFile()
+    private async Task DownloadFile(bool includeFront, bool includeBack)
     {
-        if (_charsheetFront is null || _charsheetBack is null)
-            return;
-
-        (Stream Content, string Name) downloaded = (_includeFront, _includeBack) switch
+        (Stream Content, string Name) downloaded = (includeFront, includeBack) switch
         {
             (true, true) => (await CreateBothPageStream(), $"{NormalizedFileName}.zip"),
             (true, false) => (CreatePageStream(CreateFrontPage()), $"{NormalizedFileName}_front.svg"),

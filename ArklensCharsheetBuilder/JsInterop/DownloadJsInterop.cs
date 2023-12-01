@@ -3,11 +3,8 @@
 namespace ArklensCharsheetBuilder.JsInterop;
 
 [RegisterScoped]
-public class DownloadJsInterop : JsInteropBase
+public class DownloadJsInterop(IJSRuntime jsRuntime) : JsInteropBase(jsRuntime)
 {
-    public DownloadJsInterop(IJSRuntime jsRuntime) : base(jsRuntime)
-    { }
-
     protected override string JsFilePath => "js/download.js";
 
     public async ValueTask DownloadAsync(Stream stream, string fileName)
