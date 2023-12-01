@@ -31,9 +31,14 @@
     <InputText @bind-Value="@_fileName"/> Можете написать здесь названия скачиваемых файлов
 </p>
 
-<div class="portrait-container">
-    <div style="background-image: url(@GetPortraitData())" class="portrait"></div>
-</div><br/>
+@if ((_charsheetFront, _charsheetBack) is (not null, not null))
+{
+    <div>
+        @((MarkupString)_charsheetFront)
+        @((MarkupString)_charsheetBack)
+    </div>
+}
+
 <button class="btn btn-primary" @onclick="@(() => DownloadFile(false, true))">⬇️ Переднюю часть (svg)</button>
 <button class="btn btn-primary" @onclick="@(() => DownloadFile(true, false))">⬇️ Заднюю часть (svg)</button>
 <button class="btn btn-success" @onclick="@(() => DownloadFile(true, true))">⬇️ Обе части (zip)</button>
