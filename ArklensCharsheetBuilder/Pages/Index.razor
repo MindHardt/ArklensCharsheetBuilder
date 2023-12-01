@@ -34,8 +34,8 @@
 @if ((_charsheetFront, _charsheetBack) is (not null, not null))
 {
     <div>
-        @((MarkupString)_charsheetFront)
-        @((MarkupString)_charsheetBack)
+        @((MarkupString)CreateFrontPage())
+        @((MarkupString)CreateBackPage())
     </div>
 }
 
