@@ -68,13 +68,13 @@ public partial class Index
     private string NormalizedFileName => string.IsNullOrWhiteSpace(_fileName)
         ? "charsheet"
         : _fileName;
-    
+
     private string CreateFrontPage()
         => _charsheetFront!.Replace(DefaultPortraitBase64, _portraitBase64);
 
     private string CreateBackPage()
         => _charsheetBack!;
-    
+
     private static Stream CreatePageStream(string page)
         => new MemoryStream(Encoding.UTF8.GetBytes(page));
 
@@ -96,7 +96,7 @@ public partial class Index
         {
             await writer.WriteAsync(backPage);
         }
-        
+
         zip.Dispose();
         resultStream.Seek(0, SeekOrigin.Begin);
 
@@ -105,9 +105,9 @@ public partial class Index
 
     private async Task ChooseDefaultPortrait(ChangeEventArgs e)
     {
-        if (e.Value is not string portraitFileName) 
+        if (e.Value is not string portraitFileName)
             return;
-        
+
         var imageStream = await HttpClient.GetStreamAsync($"img/jpg/portraits/{portraitFileName}");
         await SetImageAsync(imageStream);
     }
@@ -122,7 +122,7 @@ public partial class Index
         { "Серпент ♂️", "Серпент.М.jpg" }, { "Серпент ♀️", "Серпент.Ж.jpg" }
     };
 
-    private const string DefaultPortraitBase64 = // solid white 1 px
+    private const string DefaultPortraitBase64 = // 1 pixel of 0xFFFFFF in jpg
         "/9j/4AAQSkZJRgABAQEAYABgAAD/4QBmRXhpZgAATU0AKgAAAAgABAEaAAUAAAABAAAAPgEbAAUAAAABAAAARgEoAAMAAAABAAIAAAExAAIAAAA" +
         "QAAAATgAAAAAAAABgAAAAAQAAAGAAAAABcGFpbnQubmV0IDUuMC45AP/bAEMAAwICAwICAwMDAwQDAwQFCAUFBAQFCgcHBggMCgwMCwoLCw0OEh" +
         "ANDhEOCwsQFhARExQVFRUMDxcYFhQYEhQVFP/bAEMBAwQEBQQFCQUFCRQNCw0UFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUF" +
